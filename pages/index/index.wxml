@@ -1,0 +1,17 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="header">
+    <view class="position">
+      <view class="add">
+        <text>+</text>
+      </view>
+      <input class="choose-position" value="{{pos}}" placeholder='选取一个地点' bindinput='inputPos' bindconfirm='addPos' auto-focus />
+    </view>
+    <text class="choose" bindtap='newPos'>选择地点</text>
+  </view>
+</view>
+
+<view>
+<map id="map" longitude='{{longitude}}' scale="{{scale}}" controls='{{controls}}' bindcontroltap='controltap' markers="{{markers}}" circles='{{circles}}' bindmarkertap="markertap" polyline='{{polyline}}' bindregionchange='regionchange' show-location style="width:100%; height:{{view.Height}}px;" ></map>
+</view>

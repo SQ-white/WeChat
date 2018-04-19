@@ -1,0 +1,36 @@
+/**index.wxss**/
+
+.header{
+  display:flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.position{
+  display: flex;
+  flex:1;
+  align-items: center;
+  border:1rpx solid #DDD;
+  padding:20rpx;
+  color:#9B9B9B;
+}
+
+.position .add{
+  width: 40rpx;
+  margin-right:10rpx;
+  color:#7ED321;
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.header .choose-position{
+  flex:1;
+  font-size:30rpx;
+}
+
+.header .choose{
+  width: 120rpx;
+  padding-left: 10px;
+  font-size: 30rpx;
+  color:#7ED321;
+}

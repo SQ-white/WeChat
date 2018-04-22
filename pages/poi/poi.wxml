@@ -10,9 +10,9 @@
       </view>
     </view>
 
-    <!-- <view bindtouchstart="bindSearch" data-keywords='{{i.name}}' class='text_box' wx:for="{{tips}}" wx:for-item="i">
+    <view bindtouchstart="bindSearch" data-keywords='{{i.name}}' class='text_box' wx:for="{{tips}}" wx:for-item="i">
       {{i.name}}
-      </view> -->
+      </view>
 
 <view class="map_container">
 <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}" controls='{{controls}}' bindcontroltap='controltap' markers="{{markers}}" circles='{{circles}}' bindmarkertap="markertap" polyline='{{polyline}}' bindregionchange='regionchange' show-location="true" style="width:100%; height:{{view.Height}}px;" ></map>

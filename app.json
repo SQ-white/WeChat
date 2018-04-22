@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/message/message",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/poi/poi",
+    "pages/inputtips/input"
   ],
   "window":{
     "backgroundTextStyle":"light",

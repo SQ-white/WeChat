@@ -3,11 +3,11 @@
 var amapFile = require('../../libs/amap-wx.js');
 var config = require('../../libs/config.js');
 
-//var lonlat;
-//var city;
+var lonlat;
+var city;
 
 var markersData = [];
-//const app = getApp()
+const app = getApp()
 
 Page({
   data: {
@@ -17,11 +17,12 @@ Page({
     longitude: "",
     markers: [],
     textData: {},
-    city:'',
+    city: '',
+    tips: {}
   },
 
   //点击marker
-  markertap:function(e) {
+  markertap: function (e) {
     console.log(e.markerId)
     var id = e.markerId;
     var that = this;
@@ -30,39 +31,39 @@ Page({
   },
 
   onLoad: function (e) {
-    //lonlat = e.lonlat;
-    //city = e.city;
+    lonlat = e.lonlat;
+    city = e.city;
 
     var that = this;
     var key = config.Config.key;
     var myAmapFun = new amapFile.AMapWX({ key: key });
     var params = {
-      iconPathSelected:"../../images/marker_checked.png",
-      iconPath:"../../images/marker.png",
-      success:function(data){
+      iconPathSelected: "../../images/marker_checked.png",
+      iconPath: "../../images/marker.png",
+      success: function (data) {
         markersData = data.markers;
         var poisData = data.poisData;
         var markers_new = [];
-        markersData.forEach(function(item,index){
+        markersData.forEach(function (item, index) {
           markers_new.push({
-            id:item.id,
-            latitude:item.latitude,
-            longitude:item.longitude,
-            iconPath:item.iconPath,
-            width:item.width,
-            height:item.height
+            id: item.id,
+            latitude: item.latitude,
+            longitude: item.longitude,
+            iconPath: item.iconPath,
+            width: item.width,
+            height: item.height
           })
         })
 
-        if(markersData.length > 0){
+        if (markersData.length > 0) {
           that.setData({
             markers: markers_new,
-            city:poisData[0].cityname || '',
-            latitude:markersData[0].latitude,
-            longitude:markersData[0].longitude,
+            city: poisData[0].cityname || '',
+            latitude: markersData[0].latitude,
+            longitude: markersData[0].longitude,
           });
-          that.showMarkerInfo(markersData,0);
-        }else{
+          that.showMarkerInfo(markersData, 0);
+        } else {
           wx.getLocation({
             type: 'gcj02',
             success: function (res) {
@@ -71,15 +72,15 @@ Page({
                 longitude: res.longitude,
                 city: '北京市'
               });
-        },
-        fali:function(){
-          that.setData({
-            latitude: 39.909729,
-            longitude: 116.398419,
-            city:'北京市'
-          });
-        }
-      })
+            },
+            fali: function () {
+              that.setData({
+                latitude: 39.909729,
+                longitude: 116.398419,
+                city: '北京市'
+              });
+            }
+          })
 
           that.setData({
             textData: {
@@ -115,6 +116,11 @@ Page({
 
   },
 
+  /* onShow:function(){
+    console.log('onshow');
+    this.onLoad();
+  }, */
+
   showMarkerInfo: function (data, i) {
     var that = this;
     that.setData({
@@ -125,7 +131,7 @@ Page({
     });
   },
 
-   bindInput: function (e) {
+  bindInput: function (e) {
     var that = this;
     var keywords = e.detail.value;
     var key = config.Config.key;
@@ -142,9 +148,9 @@ Page({
         }
       }
     })
-   },  
+  },
 
-  bindInputStart:function(e){
+  bindInputStart: function (e) {
     var that = this;
     var url = '../inputtips/input';
     if (e.target.dataset.latitude && e.target.dataset.longitude && e.target.dataset.city) {
@@ -157,15 +163,28 @@ Page({
 
   },
 
+  //用户选择好地点后，需要调用网络请求来重新渲染当前页面
+  bindSearch: function (e) {
+
+    var keywords = e.target.dataset.keywords;
+    var url = '../poi/poi';
+    url = url + '?keywords=' + keywords;
+    wx.redirectTo({
+      url: url
+    })
+
+    console.log(url)
+
+  },
 
   changeMarkerColor: function (data, i) {
     var that = this;
     var markers = [];
     for (var j = 0; j < data.length; j++) {
       if (j == i) {
-        data[j].iconPath = "../../images/marker_checked.png"; 
+        data[j].iconPath = "../../images/marker_checked.png";
       } else {
-        data[j].iconPath = "../../images/marker.png"; 
+        data[j].iconPath = "../../images/marker.png";
       }
       markers.push({
         id: data[j].id,
